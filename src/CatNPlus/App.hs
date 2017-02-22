@@ -19,6 +19,7 @@ import           Control.Monad.Trans.Either
 import qualified System.Console.ANSI as ANSI
 import           System.Directory
 import           System.Environment
+import           System.IO
 import           Text.Printf
 
 pageLength :: Int
@@ -29,22 +30,27 @@ withSGR sgrs = bracket_
     (ANSI.setSGR sgrs)
     (ANSI.setSGR [ANSI.SetColor ANSI.Foreground ANSI.Vivid ANSI.White])
 
+withSGRCond :: Bool -> [ANSI.SGR] -> IO a -> IO a
+withSGRCond True sgrs action = withSGR sgrs action
+withSGRCond False _ action = action
+
 runApp :: IO ()
 runApp = do
     paths <- getArgs
+    isTerminal <- hIsTerminalDevice stdout
     void $ runEitherT $ forM_ paths $ \p -> do
         content <- liftIO $ do
             path <- canonicalizePath p
-            withSGR [ANSI.SetColor ANSI.Foreground ANSI.Dull ANSI.Green] $
+            withSGRCond isTerminal [ANSI.SetColor ANSI.Foreground ANSI.Dull ANSI.Green] $
                 putStrLn path
             readFile path
         runEitherT $ forM_ (zip [1..] (lines content)) $ \(n, line) -> do
             liftIO $ do
-                withSGR [ANSI.SetColor ANSI.Foreground ANSI.Dull ANSI.Yellow] $
+                withSGRCond isTerminal [ANSI.SetColor ANSI.Foreground ANSI.Dull ANSI.Yellow] $
                     putStr (printf "%6d" n)
                 putStrLn $ "  " ++ line
 
-            when (n `mod` pageLength == 0) $ do
+            when (isTerminal && n `mod` pageLength == 0) $ do
                 shouldContinue <- liftIO $ do
                     c <- waitForKeyPress ['Q', 'q', ' ']
                     return $ c /= 'Q' && c/= 'q'
