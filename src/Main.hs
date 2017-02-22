@@ -10,5 +10,7 @@ Portability : portable
 
 module Main (main) where
 
+import           CatNPlus
+
 main :: IO ()
-main = putStrLn "Hello world"
+main = runApp
