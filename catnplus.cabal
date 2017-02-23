@@ -19,7 +19,18 @@ executable catnplus
   default-language:                 Haskell2010
   other-modules:                    CatNPlus
                                   , CatNPlus.App
+                                  , CatNPlus.GetHiddenChar
                                   , CatNPlus.KeyPress
+  if os(linux)
+    cpp-options:                    -DOS_Linux
+    other-modules:                  CatNPlus.GetHiddenChar.Posix
+  if os(windows)
+    cpp-options:                    -DOS_Windows
+    other-modules:                  CatNPlus.GetHiddenChar.Windows
+  if os(darwin)
+    cpp-options:                    -DOS_macOS
+    other-modules:                  CatNPlus.GetHiddenChar.Posix
+
   build-depends:                    ansi-terminal
                                   , base
                                   , directory
