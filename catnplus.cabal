@@ -24,4 +24,5 @@ executable catnplus
                                   , base
                                   , directory
                                   , either
+                                  , terminal-size
                                   , transformers

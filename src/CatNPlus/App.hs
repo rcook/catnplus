@@ -17,13 +17,11 @@ import           Control.Monad.IO.Class
 import           Control.Monad.Trans.Class
 import           Control.Monad.Trans.Either
 import qualified System.Console.ANSI as ANSI
+import qualified System.Console.Terminal.Size as TS
 import           System.Directory
 import           System.Environment
 import           System.IO
 import           Text.Printf
-
-pageLength :: Int
-pageLength = 5
 
 withSGR :: [ANSI.SGR] -> IO a -> IO a
 withSGR sgrs = bracket_
@@ -34,9 +32,17 @@ withSGRCond :: Bool -> [ANSI.SGR] -> IO a -> IO a
 withSGRCond True sgrs action = withSGR sgrs action
 withSGRCond False _ action = action
 
+getPageLength :: IO Int
+getPageLength = do
+    mbWindow <- TS.size
+    case mbWindow of
+        Nothing -> return 20
+        Just (TS.Window h _) -> return $ h - 2
+
 runApp :: IO ()
 runApp = do
     paths <- getArgs
+    pageLength <- getPageLength
     isTerminal <- hIsTerminalDevice stdout
     void $ runEitherT $ forM_ paths $ \p -> do
         content <- liftIO $ do
