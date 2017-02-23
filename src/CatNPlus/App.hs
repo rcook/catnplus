@@ -58,6 +58,6 @@ runApp = do
 
             when (isTerminal && n `mod` pageLength == 0) $ do
                 shouldContinue <- liftIO $ do
-                    c <- waitForKeyPress ['Q', 'q', ' ']
+                    c <- waitForKeyPressOneOf ['Q', 'q', ' ']
                     return $ c /= 'Q' && c/= 'q'
                 when (not shouldContinue) $ lift $ left ()

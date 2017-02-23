@@ -8,7 +8,7 @@ Stability   : experimental
 Portability : portable
 -}
 
-module CatNPlus.KeyPress (waitForKeyPress) where
+module CatNPlus.KeyPress (waitForKeyPressOneOf) where
 
 import           CatNPlus.GetHiddenChar
 import           Control.Exception
@@ -21,8 +21,8 @@ import           System.IO
 prompt :: String
 prompt = ": "
 
-waitForKeyPress :: [Char] -> IO Char
-waitForKeyPress cs = bracket_
+waitForKeyPressOneOf :: [Char] -> IO Char
+waitForKeyPressOneOf cs = bracket_
     (putStr prompt >> hFlush stdout)
     (cursorBackward (length prompt) >> clearFromCursorToLineEnd) $ do
         Left c <- runEitherT $ forever $ do
