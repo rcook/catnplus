@@ -52,7 +52,7 @@ runApp = do
             readFile path
         runEitherT $ forM_ (zip [1..] (lines content)) $ \(n, line) -> do
             liftIO $ do
-                withSGRCond isTerminal [ANSI.SetColor ANSI.Foreground ANSI.Dull ANSI.Yellow] $
+                withSGRCond isTerminal [ANSI.SetColor ANSI.Foreground ANSI.Vivid ANSI.Yellow] $
                     putStr (printf "%6d" n)
                 putStrLn $ "  " ++ line
 
