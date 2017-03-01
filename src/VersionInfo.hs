@@ -21,9 +21,11 @@ gitVersionString :: String
 gitVersionString = $(do
     v <- qRunIO getRevision
     lift $ case v of
-        Nothing -> "<none>"
+        Nothing -> []
         Just (commit, True)  -> commit ++ " (locally modified)"
         Just (commit, False) -> commit)
 
 fullVersionString :: String
-fullVersionString = showVersion version ++ "." ++ gitVersionString
+fullVersionString = case gitVersionString of
+    [] -> showVersion version
+    v -> showVersion version ++ "." ++ v

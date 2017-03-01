@@ -1,6 +1,7 @@
 name:                               catnplus
 version:                            0.1.0.0
 synopsis:                           Simple tool to display text files with line numbers and paging
+description:                        Simple tool to display text files with line numbers and paging
 homepage:                           https://github.com/rcook/catnplus#readme
 license:                            MIT
 license-file:                       LICENSE
@@ -14,7 +15,7 @@ extra-source-files:                 README.md
 
 executable catnplus
   hs-source-dirs:                   src
-  ghc-options:                      -W -Wall -Werror
+  ghc-options:                      -W -Wall
   main-is:                          Main.hs
   default-language:                 Haskell2010
   other-modules:                    CatNPlus
@@ -33,7 +34,7 @@ executable catnplus
     other-modules:                  CatNPlus.GetHiddenChar.Posix
 
   build-depends:                    ansi-terminal
-                                  , base
+                                  , base >= 4.7 && < 5
                                   , directory
                                   , either
                                   , optparse-applicative
