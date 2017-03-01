@@ -1,6 +1,7 @@
 resolver: lts-7.8
 packages:
 - .
-extra-deps: []
+extra-deps:
+- vcs-revision-0.0.2
 flags: {}
 extra-package-dbs: []

@@ -19,7 +19,6 @@ import           Control.Monad.Trans.Either
 import qualified System.Console.ANSI as ANSI
 import qualified System.Console.Terminal.Size as TS
 import           System.Directory
-import           System.Environment
 import           System.IO
 import           Text.Printf
 
@@ -39,9 +38,8 @@ getPageLength = do
         Nothing -> return 20
         Just (TS.Window h _) -> return $ h - 2
 
-runApp :: IO ()
-runApp = do
-    paths <- getArgs
+runApp :: [FilePath] -> IO ()
+runApp paths = do
     pageLength <- getPageLength
     isTerminal <- hIsTerminalDevice stdout
     void $ runEitherT $ forM_ paths $ \p -> do

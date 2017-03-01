@@ -21,6 +21,7 @@ executable catnplus
                                   , CatNPlus.App
                                   , CatNPlus.GetHiddenChar
                                   , CatNPlus.KeyPress
+                                  , VersionInfo
   if os(linux)
     cpp-options:                    -DOS_Linux
     other-modules:                  CatNPlus.GetHiddenChar.Posix
@@ -35,5 +36,8 @@ executable catnplus
                                   , base
                                   , directory
                                   , either
+                                  , optparse-applicative
+                                  , template-haskell
                                   , terminal-size
                                   , transformers
+                                  , vcs-revision
