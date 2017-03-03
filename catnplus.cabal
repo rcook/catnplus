@@ -1,5 +1,5 @@
 name:                               catnplus
-version:                            0.1.0.0
+version:                            0.1.0.1
 synopsis:                           Simple tool to display text files with line numbers and paging
 description:                        Simple tool to display text files with line numbers and paging
 homepage:                           https://github.com/rcook/catnplus#readme
