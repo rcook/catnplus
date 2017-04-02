@@ -2,6 +2,7 @@ resolver: lts-7.8
 packages:
 - .
 extra-deps:
+- hidden-char-0.1.0.0
 - vcs-revision-0.0.2
 flags: {}
 extra-package-dbs: []

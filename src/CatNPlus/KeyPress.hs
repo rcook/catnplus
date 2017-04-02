@@ -10,13 +10,13 @@ Portability : portable
 
 module CatNPlus.KeyPress (waitForKeyPressOneOf) where
 
-import           CatNPlus.GetHiddenChar
 import           Control.Exception
 import           Control.Monad
 import           Control.Monad.Trans.Class
 import           Control.Monad.Trans.Either
 import           System.Console.ANSI
 import           System.IO
+import           System.IO.HiddenChar
 
 prompt :: String
 prompt = ": "

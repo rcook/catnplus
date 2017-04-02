@@ -10,10 +10,8 @@ Portability : portable
 
 module CatNPlus
     ( module CatNPlus.App
-    , module CatNPlus.GetHiddenChar
     , module CatNPlus.KeyPress
     ) where
 
 import           CatNPlus.App
-import           CatNPlus.GetHiddenChar
 import           CatNPlus.KeyPress
